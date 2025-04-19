@@ -1,0 +1,40 @@
+//in ra số phần tử yên ngựa, vị trí của ptu đó
+#include<iostream>
+#include<vector>
+using namespace std;
+
+int main() {
+    int a[100][100], m, n;
+    cin >> m >> n;
+    for (int i = 0; i < m; i++)
+        for (int j = 0; j < n; j++)
+            cin >> a[i][j];
+
+    vector<pair<int, int>> pos;
+
+    for (int i = 0; i < m; i++) {
+        int maxval = a[i][0];
+        for (int j = 0; j < n; j++) {
+            if (a[i][j] > maxval)
+                maxval = a[i][j];
+        }
+        for (int j = 0; j < n; j++) {
+            if (a[i][j] == maxval) {
+                bool isMinInCol = true;
+                for (int k = 0; k < m; k++) {
+                    if (a[k][j] < a[i][j]) {
+                        isMinInCol = false;
+                        break;
+                    }
+                }
+                if (isMinInCol) {
+                    pos.push_back({i + 1, j + 1});
+                }
+            }
+        }
+    }
+    cout << pos.size() << endl;
+    for (auto p : pos)
+        cout << p.first << " " << p.second << endl;
+    return 0;
+}
